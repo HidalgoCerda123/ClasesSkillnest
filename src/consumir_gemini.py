@@ -31,14 +31,14 @@ def armar_peticion(pregunta, nombre_modelo=MODELO): #pregunta= "Confirma la cone
 #funcion envia la peticion 
 def enviar_peticion(url, body):
     try:
-        respuesta= requests.post(url, json=body, timeout=30)
+        respuesta= requests.post(url, json=body, timeout=120)
     except requests.exceptions.ConnectionError:
         raise RuntimeError("No se pudo conectar con el servicio. Intenta de nuevo en unos momentos.")
     except requests.exceptions.Timeout:
         raise RuntimeError("Se agoto el tiempo. Intenta de nuevo en unos momentos.")
 
     if respuesta.status_code != 200:
-        raise RuntimeError(f"Error en la solicitud. Status Code: {respuesta.status_code}")
+        raise RuntimeError(f"Error en la solicitud. Status Code: {respuesta.status_code}. {respuesta.text}")
     
     try:
         return respuesta.json()
@@ -68,9 +68,9 @@ def obtener_dato_prueba(pregunta):
 
 def calcular_costo(datos, precio_entrada, precio_salida):
     uso = datos["usageMetadata"]
-    tokens_entrada = uso["promptTokenCount"]
-    tokens_salida = uso["candidatesTokenCount"]
-    tokens_razonamiento = uso["thoughtsTokenCount"]
+    tokens_entrada = uso.get("promptTokenCount", 0)
+    tokens_salida = uso.get("candidatesTokenCount", 0)
+    tokens_razonamiento = uso.get("thoughtsTokenCount", 0)
     costo = (tokens_entrada * precio_entrada) + ((tokens_salida + tokens_razonamiento) * precio_salida)
     return costo
 
