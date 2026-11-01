@@ -1,0 +1,22 @@
+{
+  "estimar_respuesta_y_tiempo": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "extraer_entidades": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "analizar_sentimiento": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "resumir_en_puntos": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "clasificar_ticket_soporte": {
+    "exitos": 3,
+    "intentos": 3
+  }
+}
