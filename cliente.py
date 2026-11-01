@@ -14,7 +14,7 @@ def con_reintento(
     for intento in range(1, intentos + 1):
         try:
             return funcion()
-        except RuntimeError:
+        except (RuntimeError, TimeoutError):
             if intento == intentos:
                 raise
             espera = min(espera_base * (2 ** (intento - 1)), espera_maxima)
@@ -42,7 +42,7 @@ def consultar_modelo(pregunta: str, system_instruction: str = "") -> str:
     url, body = armar_peticion(pregunta, MODELO, system_instruction)
     try:
         respuesta = con_reintento(lambda: enviar_peticion(url, body))
-    except RuntimeError:
+    except (RuntimeError, TimeoutError):
         raise RuntimeError("El servicio no respondió tras varios intentos. Intenta más tarde.")
     registrar_costo(respuesta)
     return extraer_texto(respuesta)
