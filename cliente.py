@@ -1,28 +1,26 @@
 import time
-
 import random
-
 from typing import Callable, Any
 
 from src.consumir_gemini import MODELO, armar_peticion, enviar_peticion, extraer_texto
 
 
 def con_reintento(
-	funcion: Callable[[], Any],
-	intentos: int = 3,
-	espera_base: float = 2,
-	espera_maxima: float = 30,
+    funcion: Callable[[], Any],
+    intentos: int = 3,
+    espera_base: float = 2,
+    espera_maxima: float = 30,
 ) -> Any:
-	for intento in range(1, intentos + 1):
-		try:
-			return funcion()
-		except RuntimeError:
-			if intento == intentos:
-				raise
-			espera = min(espera_base * (2 ** (intento - 1)), espera_maxima)
-			espera_con_jitter = espera + random.uniform(0, espera * 0.1)
-			print(f"Intento {intento} de {intentos} falló. Reintentando en {espera_con_jitter:.1f}s...")
-			time.sleep(espera_con_jitter)
+    for intento in range(1, intentos + 1):
+        try:
+            return funcion()
+        except RuntimeError:
+            if intento == intentos:
+                raise
+            espera = min(espera_base * (2 ** (intento - 1)), espera_maxima)
+            espera_con_jitter = espera + random.uniform(0, espera * 0.1)
+            print(f"Intento {intento} de {intentos} falló. Reintentando en {espera_con_jitter:.1f}s...")
+            time.sleep(espera_con_jitter)
 
 
 COSTO_POR_1000_TOKENS = 0.002  # referencial, ajusta según el modelo que uses
@@ -51,5 +49,17 @@ def consultar_modelo(pregunta: str, system_instruction: str = "") -> str:
 
 
 if __name__ == "__main__":
-    resultado = consultar_modelo("¿cual es la capital de Chile?", "")
-    print(resultado)
+    preguntas = [
+        "¿Cuál es la capital de Chile?",
+        "¿Cuál es la fórmula química del agua?",
+        "¿Qué tipo de estrella es el Sol?",
+    ]
+
+    for i, pregunta in enumerate(preguntas):
+        try:
+            respuesta = consultar_modelo(pregunta)
+            print(f"Respuesta {i}: {respuesta[:40]}...")
+        except RuntimeError as error:
+            print(f"Respuesta {i} falló definitivamente: {error}")
+
+    print(f"Costo total del ensayo: ${costo_total_sesion:.5f}")
