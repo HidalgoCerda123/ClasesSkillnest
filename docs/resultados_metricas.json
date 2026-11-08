@@ -1,0 +1,142 @@
+[
+  {
+    "consulta": "¿Qué es Python?",
+    "respuesta": "Python es un lenguaje de programación de alto nivel, interpretado y de propósito general.",
+    "precision": 0.5,
+    "cobertura": 1.0,
+    "f1": 0.6666666666666666
+  },
+  {
+    "consulta": "¿Cuándo se creó Python?",
+    "respuesta": "Python se creó oficialmente el 20 de febrero de 1991.",
+    "precision": 0.2,
+    "cobertura": 0.4,
+    "f1": 0.26666666666666666
+  },
+  {
+    "consulta": "¿Qué es una lista en Python?",
+    "respuesta": "Una lista en Python es una colección ordenada y modificable de elementos heterogéneos.",
+    "precision": 0.6153846153846154,
+    "cobertura": 1.0,
+    "f1": 0.761904761904762
+  },
+  {
+    "consulta": "¿Quién creó Python?",
+    "respuesta": "Python fue creado por el programador neerlandés Guido van Rossum en 1991.",
+    "precision": 0.5833333333333334,
+    "cobertura": 1.0,
+    "f1": 0.7368421052631579
+  },
+  {
+    "consulta": "¿En qué año se lanzó Python 3.0?",
+    "respuesta": "Python 3.0 fue lanzado oficialmente en el año 2008.",
+    "precision": 0.4444444444444444,
+    "cobertura": 0.6666666666666666,
+    "f1": 0.5333333333333333
+  },
+  {
+    "consulta": "¿En qué año llegó el ser humano a la Luna?",
+    "respuesta": "El ser humano llegó a la Luna en el año 1969.",
+    "precision": 0.8181818181818182,
+    "cobertura": 1.0,
+    "f1": 0.9
+  },
+  {
+    "consulta": "¿Python es un lenguaje compilado?",
+    "respuesta": "No, Python es un lenguaje interpretado que compila internamente a código intermedio antes de ejecutarse.",
+    "precision": 0.4,
+    "cobertura": 1.0,
+    "f1": 0.5714285714285715
+  },
+  {
+    "consulta": "¿Cuál es la capital de Chile?",
+    "respuesta": "Santiago es la capital y la ciudad más poblada de Chile.",
+    "precision": 0.5454545454545454,
+    "cobertura": 1.0,
+    "f1": 0.7058823529411764
+  },
+  {
+    "consulta": "¿Cuál es la fórmula química del agua?",
+    "respuesta": "La fórmula química del agua es $H_2O$, compuesta por dos átomos de hidrógeno y uno de oxígeno.",
+    "precision": 0.35294117647058826,
+    "cobertura": 0.8571428571428571,
+    "f1": 0.5
+  },
+  {
+    "consulta": "¿Cuántos planetas tiene el sistema solar?",
+    "respuesta": "El sistema solar tiene ocho planetas en total.",
+    "precision": 0.75,
+    "cobertura": 1.0,
+    "f1": 0.8571428571428571
+  },
+  {
+    "consulta": "¿Cuál es el planeta más grande del sistema solar?",
+    "respuesta": "Júpiter es el planeta más grande y masivo de todo nuestro sistema solar.",
+    "precision": 0.6153846153846154,
+    "cobertura": 0.8888888888888888,
+    "f1": 0.7272727272727274
+  },
+  {
+    "consulta": "¿Cuál es el río más largo de Sudamérica?",
+    "respuesta": "El Amazonas es el río más largo y caudaloso de Sudamérica.",
+    "precision": 0.8181818181818182,
+    "cobertura": 1.0,
+    "f1": 0.9
+  },
+  {
+    "consulta": "¿Qué significa HTTP?",
+    "respuesta": "HTTP es el protocolo de transferencia utilizado para transmitir páginas web por internet.",
+    "precision": 0.3076923076923077,
+    "cobertura": 0.5714285714285714,
+    "f1": 0.4
+  },
+  {
+    "consulta": "¿Qué es una variable en programación?",
+    "respuesta": "Es un espacio de memoria para almacenar datos que pueden cambiar durante la ejecución.",
+    "precision": 0.2857142857142857,
+    "cobertura": 0.36363636363636365,
+    "f1": 0.32
+  },
+  {
+    "consulta": "¿Qué es una función en Python?",
+    "respuesta": "Es un bloque de código reutilizable que realiza una tarea específica mediante argumentos y retorno.",
+    "precision": 0.5333333333333333,
+    "cobertura": 0.6153846153846154,
+    "f1": 0.5714285714285715
+  },
+  {
+    "consulta": "¿Qué es un diccionario en Python?",
+    "respuesta": "Un diccionario en Python es una colección mutable que almacena datos en pares de clave-valor.",
+    "precision": 0.4666666666666667,
+    "cobertura": 0.7777777777777778,
+    "f1": 0.5833333333333334
+  },
+  {
+    "consulta": "¿Para qué sirve Git?",
+    "respuesta": "Git sirve para registrar los cambios en el código y facilitar el trabajo colaborativo en programación.",
+    "precision": 0.25,
+    "cobertura": 0.2857142857142857,
+    "f1": 0.26666666666666666
+  },
+  {
+    "consulta": "¿Qué es una API?",
+    "respuesta": "Es una interfaz que permite la comunicación entre diferentes sistemas de software.",
+    "precision": 0.4166666666666667,
+    "cobertura": 0.4166666666666667,
+    "f1": 0.4166666666666667
+  },
+  {
+    "consulta": "¿Cuál es la diferencia entre una lista y una tupla en Python?",
+    "respuesta": "Las listas son mutables y modificables, mientras que las tuplas son inmutables y fijas.",
+    "precision": 0.07142857142857142,
+    "cobertura": 0.1111111111111111,
+    "f1": 0.08695652173913043
+  },
+  {
+    "consulta": "¿Por qué el cielo es azul?",
+    "respuesta": "El cielo es azul porque las moléculas de aire dispersan más la luz azul solar.",
+    "precision": 0.6,
+    "cobertura": 0.6428571428571429,
+    "f1": 0.6206896551724138
+  }
+]
