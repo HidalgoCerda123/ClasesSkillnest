@@ -1,13 +1,29 @@
+import logging
 import os
 import time
 
 from dotenv import load_dotenv
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import RunnableBranch, RunnablePassthrough
+from langchain_core.runnables import (
+    RunnableBranch,
+    RunnableLambda,
+    RunnablePassthrough,
+)
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from src.consumir_gemini import MODELO
+
+logger = logging.getLogger(__name__)
+
+MENSAJE_FALLBACK_QUEJA = (
+    "Gracias por tu mensaje. Un miembro de nuestro equipo te va a "
+    "responder pronto."
+)
+MENSAJE_ERROR_GENERAL = (
+    "No pudimos procesar tu mensaje en este momento. "
+    "Intenta de nuevo más tarde."
+)
 
 # Clasifica un mensaje de soporte en una sola palabra.
 plantilla_clasificacion = PromptTemplate.from_template(
@@ -76,15 +92,38 @@ def construir_cadena_con_enrutamiento(
     return RunnablePassthrough.assign(categoria=paso_clasificacion) | bifurcacion
 
 
+respuesta_generica = RunnableLambda(lambda x: MENSAJE_FALLBACK_QUEJA)
+
+
+def construir_cadena_queja_segura(cadena_queja):
+    """Si la ruta de queja falla, responde con un texto genérico y útil."""
+    return cadena_queja.with_fallbacks([respuesta_generica])
+
+
+def procesar_mensaje_seguro(cadena, mensaje):
+    """Invoca la cadena sin propagar errores: los registra y responde igual."""
+    try:
+        return cadena.invoke({"mensaje": mensaje})
+    except Exception as error:
+        logger.error("Error procesando mensaje: %s", error)
+        return MENSAJE_ERROR_GENERAL
+
+
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.WARNING)
     load_dotenv()
     modelo = ChatGoogleGenerativeAI(
-        model=MODELO, google_api_key=os.getenv("GEMINI_API_KEY")
+        model=MODELO,
+        google_api_key=os.getenv("GEMINI_API_KEY"),
+        timeout=10,  # evita que una llamada colgada bloquee el flujo
     )
     paso_clasificacion = construir_paso_clasificacion(modelo)
     cadena_queja, cadena_sugerencia, cadena_pregunta = construir_rutas(modelo)
     cadena = construir_cadena_con_enrutamiento(
-        paso_clasificacion, cadena_queja, cadena_sugerencia, cadena_pregunta
+        paso_clasificacion,
+        construir_cadena_queja_segura(cadena_queja),
+        cadena_sugerencia,
+        cadena_pregunta,
     )
 
     mensajes = [
@@ -93,8 +132,8 @@ if __name__ == "__main__":
         "Sería genial que la aplicación tuviera modo oscuro.",
     ]
     for mensaje in mensajes:
-        categoria = paso_clasificacion.invoke({"mensaje": mensaje})
-        respuesta = cadena.invoke({"mensaje": mensaje})
+        categoria = procesar_mensaje_seguro(paso_clasificacion, mensaje)
+        respuesta = procesar_mensaje_seguro(cadena, mensaje)
         print(f"Mensaje:   {mensaje}")
         print(f"Categoría: {categoria}")
         print(f"Respuesta: {respuesta}\n")
