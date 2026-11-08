@@ -2,7 +2,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-import cliente
+from src import cliente
 from src.consumir_gemini import enviar_peticion
 
 URL_FALSA = "https://ejemplo.invald"
@@ -51,7 +51,7 @@ def test_enviar_peticion_exito():
 def test_con_reintento_agota_intentos():
     funcion_falsa = Mock(side_effect=TimeoutError("proveedor saturado"))
 
-    with patch("cliente.time.sleep") as sleep_falso:
+    with patch("src.cliente.time.sleep") as sleep_falso:
         with pytest.raises(TimeoutError):
             cliente.con_reintento(funcion_falsa, intentos=3)
 
@@ -62,7 +62,7 @@ def test_con_reintento_agota_intentos():
 def test_con_reintento_no_reintenta_value_error():
     funcion_falsa = Mock(side_effect=ValueError("credencial invalida"))
 
-    with patch("cliente.time.sleep") as sleep_falso:
+    with patch("src.cliente.time.sleep") as sleep_falso:
         with pytest.raises(ValueError):
             cliente.con_reintento(funcion_falsa, intentos=3)
 
@@ -87,8 +87,8 @@ def test_registrar_costo_acumula():
 # ======================= TEST CONSULTAR_MODELO =========================
 
 def test_consultar_modelo_convierte_error():
-    with patch("cliente.enviar_peticion", side_effect=TimeoutError("503")), \
-            patch("cliente.time.sleep"):
+    with patch("src.cliente.enviar_peticion", side_effect=TimeoutError("503")), \
+            patch("src.cliente.time.sleep"):
         with pytest.raises(RuntimeError, match="no respondió"):
             cliente.consultar_modelo("¿Cuál es la capital de Chile?")
 

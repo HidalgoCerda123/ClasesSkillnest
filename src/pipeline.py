@@ -1,4 +1,4 @@
-from pipeline_limpieza import *
+from src.pipeline_limpieza import *
 
 referencia = "El cielo es azul."
 respuesta = "el cielo es azul"
