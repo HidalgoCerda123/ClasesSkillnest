@@ -1,0 +1,2 @@
+{"herramienta": "generar_reembolso", "argumentos": {"numero_pedido": "P-2001", "monto": 50000.0}, "aprobado": true, "momento": "2026-11-14T15:03:18.645742"}
+{"herramienta": "generar_reembolso", "argumentos": {"numero_pedido": "P-2002", "monto": 50000.0}, "aprobado": false, "momento": "2026-11-14T15:03:26.971154"}

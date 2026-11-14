@@ -104,7 +104,7 @@ prompt_agente = ChatPromptTemplate.from_messages([
 ])
 
 
-def construir_ejecutor(modelo):
+def construir_ejecutor(modelo, herramientas=herramientas):
     """Arma el agente con sus herramientas; el modelo entra como parámetro."""
     agente = create_tool_calling_agent(modelo, herramientas, prompt_agente)
     return AgentExecutor(
