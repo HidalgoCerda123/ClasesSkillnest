@@ -19,3 +19,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Vector store de Chroma (se regenera con indexar_corpus.py)
+vectorstore/
